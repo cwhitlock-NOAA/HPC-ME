@@ -70,7 +70,6 @@ set -o noclobber \
 &&   echo '    - git@2.47.0' \
 &&   echo '    - git-lfs@3.5.1' \
 &&   echo '    - gnuplot@6.0.0' \
-&&   echo '    - grace@5.1.25' \
 &&   echo '    - gsl@2.8' \
 &&   echo '    - hdf5@1.14.5' \
 &&   echo '    - ip@5.1.0' \
@@ -78,15 +77,12 @@ set -o noclobber \
 &&   echo '    - libgeotiff@1.7.1' \
 &&   echo '    - libpng@1.6.39' \
 &&   echo '    - libtool@2.4.7' \
-&&   echo '    - magics@4.15.3' \
 &&   echo '    - mpich@4.2.3' \
-&&   echo '    - nasm@2.16.03' \
 &&   echo '    - nccmp@1.9.1.0' \
 &&   echo '    - nco@5.2.4' \
 &&   echo '    - ncview@2.1.9' \
 &&   echo '    - netcdf-c@4.9.2' \
 &&   echo '    - netcdf-fortran@4.6.1' \
-&&   echo '    - octave@8.4.0' \
 &&   echo '    - openjdk@17.0.11_9' \
 &&   echo '    - openmpi@5.0.5' \
 &&   echo '    - parallel@20240822' \
