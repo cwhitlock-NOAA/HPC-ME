@@ -1,9 +1,9 @@
 # Build stage with Spack pre-installed and ready to be used
 FROM spack/rockylinux9:0.23 as builder
 
-RUN whereis gcc
+RUN echo $(whereis gcc)
 
-RUN gcc --version
+RUN echo $(gcc --version)
 
 RUN FAIL
 
