@@ -144,7 +144,7 @@ set -o noclobber \
 RUN echo "installing gcc 13.3.0"
 RUN echo $(spack compiler list)
 RUN . /opt/spack/share/spack/setup-env.sh && \
-   spack external find && \   
+   #spack external find && \   
    spack install gcc@13.3.0%gcc@11.5.0
 RUN . /opt/spack/share/spack/setup-env.sh && \
    spack load gcc@13.3.0 && \
