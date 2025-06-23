@@ -137,6 +137,14 @@ set -o noclobber \
 &&   echo '  - $spack/var/spack/repos/builtin' \
 &&   echo '  view: /opt/views/view') > /opt/spack-environment/spack.yaml
 
+
+# https://docs.docker.com/build/building/multi-stage/
+FROM builder AS add_compilers
+copy --from=builder /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py
+copy --from=builder /opt/spack/var/spack/repos/custom/repo.yaml /opt/spack/var/spack/repos/custom/repo.yaml
+copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spack.yaml
+
+
 # Install gcc 13.3.0
 RUN . /opt/spack/share/spack/setup-env.sh && \   
    spack install gcc@13.3.0
@@ -147,6 +155,8 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
 RUN . /opt/spack/share/spack/setup-env.sh && \
    spack compiler remove gcc@13.3.0 &&\
    spack compiler remove gcc@8.5.0
+
+FROM add_compilers AS install
 
 # Install the software, remove unnecessary deps
 RUN . /opt/spack/share/spack/setup-env.sh && cd /opt/spack-environment && spack load gcc@13.3.0%gcc@13.3.0 && spack compiler add && spack --verbose env activate . && spack --verbose install --fail-fast && spack gc -y
