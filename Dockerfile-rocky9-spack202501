@@ -1,6 +1,12 @@
 # Build stage with Spack pre-installed and ready to be used
 FROM spack/rockylinux9:0.23 as builder
 
+RUN which gcc
+
+RUN gcc --version
+
+RUN FAIL
+
 RUN sed -i '60i \    depends_on("texinfo")' /opt/spack/var/spack/repos/builtin/packages/bison/package.py && cat /opt/spack/var/spack/repos/builtin/packages/bison/package.py
 
 RUN mkdir -p /opt/spack/var/spack/repos/custom/packages/fre-nctools && \ 
