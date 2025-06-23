@@ -5,8 +5,6 @@ RUN echo $(whereis gcc)
 
 RUN echo $(gcc --version)
 
-RUN FAIL
-
 RUN sed -i '60i \    depends_on("texinfo")' /opt/spack/var/spack/repos/builtin/packages/bison/package.py && cat /opt/spack/var/spack/repos/builtin/packages/bison/package.py
 
 RUN mkdir -p /opt/spack/var/spack/repos/custom/packages/fre-nctools && \ 
