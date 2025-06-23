@@ -1,8 +1,10 @@
 # Build stage with Spack pre-installed and ready to be used
 FROM spack/rockylinux8:0.23 as builder
 
+# Patch bison to depend on texinfo (if needed)
 RUN sed -i '60i \    depends_on("texinfo")' /opt/spack/var/spack/repos/builtin/packages/bison/package.py && cat /opt/spack/var/spack/repos/builtin/packages/bison/package.py
 
+# Custom FRE-NCtools package
 RUN mkdir -p /opt/spack/var/spack/repos/custom/packages/fre-nctools && \ 
 set -o noclobber \
 &&  (echo '# Copyright 2013-2024 Lawrence Livermore National Security, LLC and other'\
@@ -47,8 +49,7 @@ set -o noclobber \
 &&   (echo 'repo: '\
 &&   echo '  namespace: custom' ) > /opt/spack/var/spack/repos/custom/repo.yaml
 
-# What we want to install and how we want to install it
-# is specified in a manifest file (spack.yaml)
+# spack.yaml for ARM64 (aarch64)
 RUN mkdir -p /opt/spack-environment && \
 set -o noclobber \
 &&  (echo spack: \
@@ -78,10 +79,8 @@ set -o noclobber \
 &&   echo '    - libgeotiff@1.7.1' \
 &&   echo '    - libpng@1.6.39' \
 &&   echo '    - libtool@2.4.7' \
-&&   echo '    - mpich@4.2.3' \
 &&   echo '    - magics@4.15.3' \
 &&   echo '    - mpich@4.2.3' \
-&&   echo '    - nasm@2.16.03' \
 &&   echo '    - nccmp@1.9.1.0' \
 &&   echo '    - nco@5.2.4' \
 &&   echo '    - ncview@2.1.9' \
@@ -119,7 +118,7 @@ set -o noclobber \
 &&   echo '    pango:' \
 &&   echo '      variants: +X' \
 &&   echo '    all:' \
-&&   echo '      target: [x86_64]' \
+&&   echo '      target: [aarch64]' \
 &&   echo '      providers:' \
 &&   echo '        mpi: [mpich]' \
 &&   echo '        zlib-api: [zlib-ng+compat, zlib]' \
@@ -137,8 +136,8 @@ set -o noclobber \
 &&   echo '  - $spack/var/spack/repos/builtin' \
 &&   echo '  view: /opt/views/view') > /opt/spack-environment/spack.yaml
 
-# Install gcc 13.3.0
-RUN . /opt/spack/share/spack/setup-env.sh && \   
+# Install gcc 13.3.0 for ARM64
+RUN . /opt/spack/share/spack/setup-env.sh && \
    spack install gcc@13.3.0
 RUN . /opt/spack/share/spack/setup-env.sh && \
    spack load gcc@13.3.0 && \
