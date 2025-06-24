@@ -147,6 +147,8 @@ copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spa
 # Install gcc 13.3.0
 # 2025-06-24: this step seems to be working - you can compile gcc 13 with 
 # (presumably) gcc 11.5.0
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   echo $(spack compiler list)
 RUN . /opt/spack/share/spack/setup-env.sh && \   
    spack install gcc@13.3.0%gcc@11.5.0
 # this step is just for information   
