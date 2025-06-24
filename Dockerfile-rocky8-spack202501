@@ -150,7 +150,7 @@ copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spa
 RUN . /opt/spack/share/spack/setup-env.sh && \
    echo $(spack compiler list)
 RUN . /opt/spack/share/spack/setup-env.sh && \   
-   spack install gcc@13.3.0%gcc@11.5.0
+   spack install gcc@13.3.0
 # this step is just for information   
 RUN . /opt/spack/share/spack/setup-env.sh && \
    echo $(spack compiler list) 
