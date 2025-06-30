@@ -148,6 +148,10 @@ copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spa
 #copy --from=builder /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py
 #copy --from=builder /opt/spack/var/spack/repos/custom/repo.yaml /opt/spack/var/spack/repos/custom/repo.yaml
 #copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spack.yaml
+
+# Install gcc 13.3.0 for ARM64
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   spack install gcc@13.3.0
      
 # and this is the step that fails   
 RUN . /opt/spack/share/spack/setup-env.sh && \
