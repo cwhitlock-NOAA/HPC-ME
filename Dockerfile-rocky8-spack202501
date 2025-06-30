@@ -149,17 +149,22 @@ copy --from=builder /opt/spack-environment/spack.yaml /opt/spack-environment/spa
 # (presumably) gcc 8.5.0 in this context
 RUN . /opt/spack/share/spack/setup-env.sh && \
    echo $(spack compiler list)
-RUN spack install gcc@13.3.0
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   spack install gcc@13.3.0
 
 # this step is just for information   
-RUN echo $(spack compiler list) 
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   echo $(spack compiler list) 
 #the previous step did show a gcc 13.3.0 compiler available
 
-RUN spack load gcc@13.3.0
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   spack load gcc@13.3.0
 
-RUN spack compiler add 
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   spack compiler add 
 
-RUN spack install gcc@13.3.0%gcc@13.3.0
+RUN . /opt/spack/share/spack/setup-env.sh && \
+   spack install gcc@13.3.0%gcc@13.3.0
    
 #FROM add_compilers as problem
 #copy --from=builder /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py /opt/spack/var/spack/repos/custom/packages/fre-nctools/package.py
