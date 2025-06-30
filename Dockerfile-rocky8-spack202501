@@ -161,6 +161,9 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
    spack load gcc@13.3.0
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
+   echo $(spack compiler list) 
+   
+RUN . /opt/spack/share/spack/setup-env.sh && \
    spack compiler add 
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
