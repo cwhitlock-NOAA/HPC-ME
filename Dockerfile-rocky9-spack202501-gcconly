@@ -148,10 +148,13 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
    spack install gcc@13.3.0 
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
+   echo $(spack spec -I -L -y gcc@13.3.0) && \
    spack load gcc@13.3.0 && \
    echo $(spack compiler list) && \
    spack compiler add && \
    echo $(spack compiler list) && \
+   echo $(spack spec -I -L -y gcc@13.3.0%gcc@13.3.0) && \
+   echo $(spack spec -I -L -y -U gcc@13.3.0%gcc@13.3.0) && \
    spack install gcc@13.3.0%gcc@13.3.0
    
 RUN echo $(spack compiler list)
