@@ -140,14 +140,3 @@ set -o noclobber \
 # Install gcc 13.3.0 for ARM64
 RUN . /opt/spack/share/spack/setup-env.sh && \
    spack install gcc@13.3.0
-     
-# and this is the step that fails   
-RUN . /opt/spack/share/spack/setup-env.sh && \
-   spack load gcc@13.3.0 && \
-   spack compiler add && \
-   echo $(spack compiler list) && \
-   spack install gcc@13.3.0%gcc@13.3.0
-   
-RUN . /opt/spack/share/spack/setup-env.sh && \
-   spack compiler remove gcc@13.3.0 &&\
-   spack compiler remove gcc@8.5.0
