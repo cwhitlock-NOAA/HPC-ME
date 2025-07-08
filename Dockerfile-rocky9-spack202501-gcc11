@@ -126,9 +126,9 @@ set -o noclobber \
 &&   echo '      providers:' \
 &&   echo '        mpi: [mpich]' \
 &&   echo '        zlib-api: [zlib-ng+compat, zlib]' \
-&&   echo '      compiler: [gcc@13.3.0]' \
+&&   echo '      compiler: [gcc@11.5.0]' \
 &&   echo '  specs:' \
-&&   echo '  - gcc@13.3.0' \
+&&   echo '  - gcc@11.5.0' \
 &&   echo '  - matrix:' \
 &&   echo '    - [$packages_builtin, $packages_custom]' \
 &&   echo '  concretizer:' \
@@ -157,7 +157,7 @@ set -o noclobber \
 #   spack compiler remove gcc@11.5.0
 
 # Install the software, remove unnecessary deps
-RUN . /opt/spack/share/spack/setup-env.sh && cd /opt/spack-environment && spack load gcc@13.3.0%gcc@13.3.0 && spack compiler add && spack --verbose env activate . && spack --verbose install --fail-fast && spack gc -y
+RUN . /opt/spack/share/spack/setup-env.sh && cd /opt/spack-environment && spack load gcc@11 && spack compiler add && spack --verbose env activate . && spack --verbose install --fail-fast && spack gc -y
 
 # Strip all the binaries
 RUN find -L /opt/views/view/* -type f -exec readlink -f '{}' \; | \
