@@ -74,7 +74,6 @@ set -o noclobber \
 &&   echo '    - git@2.47.0' \
 &&   echo '    - git-lfs@3.5.1' \
 &&   echo '    - gnuplot@6.0.0' \
-&&   echo '    - grace@5.1.25' \
 &&   echo '    - gsl@2.8' \
 &&   echo '    - hdf5@1.14.5' \
 &&   echo '    - ip@5.1.0' \
@@ -82,15 +81,12 @@ set -o noclobber \
 &&   echo '    - libgeotiff@1.7.1' \
 &&   echo '    - libpng@1.6.39' \
 &&   echo '    - libtool@2.4.7' \
-&&   echo '    - magics@4.15.3' \
 &&   echo '    - mpich@4.2.3' \
-&&   echo '    - nasm@2.16.03' \
 &&   echo '    - nccmp@1.9.1.0' \
 &&   echo '    - nco@5.2.4' \
 &&   echo '    - ncview@2.1.9' \
 &&   echo '    - netcdf-c@4.9.2' \
 &&   echo '    - netcdf-fortran@4.6.1' \
-&&   echo '    - octave@8.4.0' \
 &&   echo '    - openjdk@17.0.11_9' \
 &&   echo '    - openmpi@5.0.5' \
 &&   echo '    - parallel@20240822' \
@@ -156,29 +152,29 @@ set -o noclobber \
 #   spack compiler remove gcc@13.3.0 &&\
 #   spack compiler remove gcc@11.5.0
 
-# Install the software, remove unnecessary deps
-RUN . /opt/spack/share/spack/setup-env.sh && cd /opt/spack-environment && echo $(spack compiler list) && spack --verbose env activate . && spack --verbose install --fail-fast && spack gc -y
+## Install the software, remove unnecessary deps
+#RUN . /opt/spack/share/spack/setup-env.sh && cd /opt/spack-environment && echo $(spack compiler list) && spack --verbose env activate . && spack --verbose install --fail-fast && spack gc -y
 
-# Strip all the binaries
-RUN find -L /opt/views/view/* -type f -exec readlink -f '{}' \; | \
-    xargs file -i | \
-    grep 'charset=binary' | \
-    grep 'x-executable\|x-archive\|x-sharedlib' | \
-    awk -F: '{print $1}' | xargs strip
+## Strip all the binaries
+#RUN find -L /opt/views/view/* -type f -exec readlink -f '{}' \; | \
+#    xargs file -i | \
+#    grep 'charset=binary' | \
+#    grep 'x-executable\|x-archive\|x-sharedlib' | \
+#    awk -F: '{print $1}' | xargs strip
 
-# Modifications to the environment that are necessary to run
-RUN . /opt/spack/share/spack/setup-env.sh && \
-    cd /opt/spack-environment && \
-    spack env activate --sh -d . > activate.sh
-RUN { \
-      echo '#!/bin/sh' \
-      && echo '.' /opt/spack-environment/activate.sh \
-      && echo 'exec "$@"'; \
-    } > /entrypoint.sh \
-&& chmod a+x /entrypoint.sh \
-&& ln -s /opt/views/view /opt/view
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "/bin/bash" ]
+## Modifications to the environment that are necessary to run
+#RUN . /opt/spack/share/spack/setup-env.sh && \
+#    cd /opt/spack-environment && \
+#    spack env activate --sh -d . > activate.sh
+#RUN { \
+#      echo '#!/bin/sh' \
+#      && echo '.' /opt/spack-environment/activate.sh \
+#      && echo 'exec "$@"'; \
+#    } > /entrypoint.sh \
+#&& chmod a+x /entrypoint.sh \
+#&& ln -s /opt/views/view /opt/view
+#ENTRYPOINT [ "/entrypoint.sh" ]
+#CMD [ "/bin/bash" ]
 
 # Install R add-on packages
 RUN mkdir -p /opt/spack/scripts && \ 
@@ -311,8 +307,8 @@ set -o noclobber \
 ENV CPATH=/opt/views/view/include:$CPATH
 ENV LIBRARY_PATH=/opt/views/view/lib:$LIBRARY_PATH
 ENV RMPI_TYPE=OPENMPI
-RUN . /opt/spack-environment/activate.sh && \
-    R CMD BATCH /opt/spack/scripts/R_install_packages.R /opt/spack/scripts/R_install_packages.Rout && \
-    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/PCICt/PCICt_0.5-4.4.tar.gz', repos=NULL, type='source')" && \
-    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/climdex.pcic/climdex.pcic_1.1-11.tar.gz', repos=NULL, type='source')" && \
-    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/ncdf4.helpers/ncdf4.helpers_0.3-6.tar.gz', repos=NULL, type='source')"
+#RUN . /opt/spack-environment/activate.sh && \
+#    R CMD BATCH /opt/spack/scripts/R_install_packages.R /opt/spack/scripts/R_install_packages.Rout && \
+#    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/PCICt/PCICt_0.5-4.4.tar.gz', repos=NULL, type='source')" && \
+#    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/climdex.pcic/climdex.pcic_1.1-11.tar.gz', repos=NULL, type='source')" && \
+#    Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/ncdf4.helpers/ncdf4.helpers_0.3-6.tar.gz', repos=NULL, type='source')"
