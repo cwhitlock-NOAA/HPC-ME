@@ -1,6 +1,6 @@
 # Build stage with Spack pre-installed and ready to be used
 #attempting with spack 1.0 - the new version
-FROM spack/rockylinux9:01.0.0-alpha.1 as builder
+FROM spack/rockylinux9:1.0.0-alpha.1 as builder
 
 RUN echo $(whereis gcc)
 
