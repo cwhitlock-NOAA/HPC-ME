@@ -144,7 +144,7 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
    echo $(spack compiler list) && \
    echo $(spack compiler info) && \
    spack load gcc@13.3.0 && \
-   spack compiler add &&
+   spack compiler add && \
    echo $(spack compiler list) && \
    echo $(spack compiler info) && \
 
