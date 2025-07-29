@@ -1,6 +1,6 @@
 # Build stage with Spack pre-installed and ready to be used
 #attempting with spack 1.0 - the new version
-FROM spack/rockylinux9:1.0.0-alpha.1 as builder
+FROM spack/rockylinux9:1.0.0 as builder
 
 # Patch bison to depend on texinfo (if needed)
 RUN sed -i '60i \    depends_on("texinfo")' /opt/spack/var/spack/repos/builtin/packages/bison/package.py && cat /opt/spack/var/spack/repos/builtin/packages/bison/package.py
